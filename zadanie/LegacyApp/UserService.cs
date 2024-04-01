@@ -26,12 +26,11 @@ namespace LegacyApp
                 case "NormalClient":
                     user.HasCreditLimit = true;
                     user.CreditLimit = new UserCreditService().GetCreditLimit(user.LastName, user.DateOfBirth);
+                    if (user.CreditLimit < 500)
+                    {
+                        return false;
+                    }
                     break;
-            }
-
-            if (user.HasCreditLimit && user.CreditLimit < 500)
-            {
-                return false;
             }
             UserDataAccess.AddUser(user);
             return true;
